@@ -82,6 +82,7 @@ def init_serial_device(device_name):
     port_path_list = find_serial_device(device_name)
 
     if port_path_list is None:
+        test_list_serial_port()
         log.die('Please confirm ' + device_name + ' is correctly connected to your computer!')
     elif len(port_path_list) > 1:
         log.wrn('Found more than one ' + device_name)
@@ -700,7 +701,9 @@ def load_to_ram(serial_name, image, address):
     if sync() == False:
         log.die("Sync failed!")
 
-    send_file2mem(image, address)
+    log.inf("Send image start")
+    send_file2mem(image, address, True)
+    log.inf("Send image finish, Jump to " + str(address))
     execute(address)
 
     deinit_serial_device()

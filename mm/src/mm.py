@@ -163,7 +163,7 @@ def download_to_sd(args):
     else:
         file_name = path.name
 
-    download_to_sd_with_target_name('wch', f, file_name)
+    download_to_sd_with_target_name('/dev/ttyACM0', f, file_name)
 
 def download_to_partition(args):
     if args.file is None or args.partition is None:
@@ -173,7 +173,7 @@ def download_to_partition(args):
     if not f.is_file():
         log.die('open file ' + str(f) + ' failed!')
 
-    serial_download.load_to_partition('wch', f, args.partition)
+    serial_download.load_to_partition('/dev/ttyACM0', f, args.partition)
 
 def download_to_ram(args):
     if args.file is None or args.address is None:
@@ -186,7 +186,7 @@ def download_to_ram(args):
     if not f.is_file():
         log.die('open file ' + str(f) + ' failed!')
     
-    serial_download.load_to_ram('wch', f, address)
+    serial_download.load_to_ram('/dev/ttyACM0', f, address)
 
 
 def download_img(args):
@@ -233,7 +233,7 @@ def copy_resources(args):
     else:
         delete_first = False
 
-    serial_download.copy_to_filesystem('wch', delete_first, source, destination, files)
+    serial_download.copy_to_filesystem('/dev/ttyACM0', delete_first, source, destination, files)
 
     for file in files:
         log.dbg(str(file))
